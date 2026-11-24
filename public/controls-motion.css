@@ -1,0 +1,96 @@
+@media screen and (prefers-reduced-motion: no-preference) {
+  .picker-chevron {
+    transition: transform 160ms ease;
+  }
+
+  @supports (transition-behavior: allow-discrete) {
+    dialog {
+      opacity: 0;
+      transform: translateY(8px) scale(.99);
+      transition: opacity 160ms ease, transform 180ms ease-out,
+        display 180ms allow-discrete, overlay 180ms allow-discrete;
+    }
+
+    dialog[open] {
+      opacity: 1;
+      transform: none;
+    }
+
+    dialog::backdrop {
+      opacity: 0;
+      transition: opacity 160ms ease, display 180ms allow-discrete,
+        overlay 180ms allow-discrete;
+    }
+
+    dialog[open]::backdrop {
+      opacity: 1;
+    }
+
+    dialog:not([open]), dialog:not([open])::backdrop, #service-options[hidden] {
+      pointer-events: none;
+    }
+
+    /* A new modal takes over immediately when a service leads to the brief. */
+    body:has(dialog[open]) dialog:not([open]),
+    body:has(dialog[open]) dialog:not([open])::backdrop {
+      transition: none;
+    }
+
+    #service-options {
+      opacity: 1;
+      clip-path: inset(0 0 0 round 0 0 10px 10px);
+      transition: opacity 120ms ease, clip-path 160ms ease-out, display 160ms allow-discrete;
+    }
+
+    #service-options[hidden] {
+      opacity: 0;
+      clip-path: inset(0 0 85% round 0 0 10px 10px);
+    }
+
+    @starting-style {
+      dialog[open] {
+        opacity: 0;
+        transform: translateY(8px) scale(.99);
+      }
+
+      dialog[open]::backdrop { opacity: 0 }
+
+      #service-options:not([hidden]) {
+        opacity: 0;
+        clip-path: inset(0 0 85% round 0 0 10px 10px);
+      }
+    }
+  }
+
+  @supports not (transition-behavior: allow-discrete) {
+    dialog[open], #service-options:not([hidden]) {
+      animation: control-appear 160ms ease-out;
+    }
+  }
+}
+
+@keyframes control-appear {
+  from { opacity: 0; transform: translateY(4px) }
+  to { opacity: 1; transform: none }
+}
+
+@media screen and (max-width: 680px) and (prefers-reduced-motion: no-preference) {
+  @supports selector(details::details-content) and (interpolate-size: allow-keywords) {
+    .person::details-content {
+      interpolate-size: allow-keywords;
+      overflow: hidden;
+      block-size: 0;
+      opacity: 0;
+      transition: block-size 200ms ease, opacity 160ms ease, content-visibility 200ms allow-discrete;
+    }
+
+    .person[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+  }
+
+  @supports not (selector(details::details-content) and (interpolate-size: allow-keywords)) {
+    .person[open] p { animation: control-appear 160ms ease-out }
+  }
+}

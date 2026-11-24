@@ -1,0 +1,63 @@
+@keyframes block-enter {
+  from {
+    opacity: var(--reveal-opacity, .08);
+    translate: 0 var(--reveal-distance, 20px);
+  }
+  to { opacity: 1; translate: 0 0 }
+}
+
+@keyframes wordmark-enter {
+  from { opacity: 0; transform: translateY(68%) }
+  to { opacity: 1; transform: translateY(0) }
+}
+
+.project-cover { display: block; overflow: hidden; border-radius: 12px }
+.project-cover img { border-radius: 0 }
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  :root { --enter-ease: cubic-bezier(.2,.72,.24,1) }
+  .hero h1 { clip-path: inset(-8% -2%) }
+  .hero .wordmark { animation: wordmark-enter 720ms var(--enter-ease) backwards }
+  .topbar, .site-header {
+    --reveal-distance: -6px;
+    --reveal-opacity: .55;
+    animation: block-enter 420ms ease-out backwards;
+  }
+  .reveal-enter {
+    animation: block-enter var(--reveal-duration, 520ms) var(--enter-ease) var(--reveal-delay, 0ms) backwards;
+  }
+  .reveal-enter:focus-within, dialog .reveal-enter { animation: none }
+  .service:nth-child(2), .service:nth-child(4), .service:nth-child(7),
+  .project-grid .project:nth-child(even), .catalog-row .project + .project,
+  .story-cols > :nth-child(2), .team-grid .person:nth-child(odd):not(:first-child) {
+    --reveal-delay: 65ms;
+  }
+  .partners, .case-board, .case-work {
+    --reveal-distance: 10px;
+    --reveal-opacity: .5;
+    --reveal-duration: 600ms;
+  }
+  .full-art > picture, .carousel { --reveal-opacity: 1; --reveal-distance: 6px }
+  .privacy, footer { --reveal-distance: 7px; --reveal-opacity: .6; --reveal-duration: 360ms }
+
+  .topbar nav a, .site-header nav a, .case-links a, footer a, .all-projects {
+    transition: color 160ms ease;
+  }
+  .pill, .send {
+    transition: background-color 160ms ease, color 160ms ease, scale 120ms ease;
+  }
+  .service { transition: scale 130ms ease }
+  .pill:active, .send:active, .service:active { scale: .985 }
+}
+
+@media screen and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project .project-cover img { transition: transform 450ms var(--enter-ease), filter 180ms ease }
+  .project a:is(:hover, :focus-visible) .project-cover img { transform: scale(1.035) }
+  .more span { display: inline-block; transition: transform 220ms var(--enter-ease) }
+  .service:is(:hover, :focus-visible) .more span { transform: translate(3px, -2px) }
+}
+
+@media (max-width: 680px) {
+  .reveal-enter { --reveal-distance: 12px }
+  .team-grid .person:nth-child(n), .story-cols > :nth-child(n) { --reveal-delay: 0ms }
+}

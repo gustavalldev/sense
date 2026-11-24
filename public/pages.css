@@ -1,0 +1,142 @@
+.catalog { padding: 18px 0 64px }
+.catalog-row { display: grid; grid-template-columns: minmax(0, .48fr) minmax(0, 1fr); align-items: start; gap: clamp(18px, 4vw, 52px); margin-bottom: clamp(24px, 3.8vw, 52px) }
+.catalog-row.layout-1, .catalog-row.layout-2, .catalog-row.layout-4 { grid-template-columns: minmax(0,1fr) minmax(0,.48fr) }
+.catalog-row .project { grid-column: auto }
+.catalog-row .project h3 { font-size: clamp(17px, 1.65vw, 22px) }
+.catalog-row .project img { transition: filter .18s ease }
+.catalog-row .project a:hover img { filter: brightness(.96) }
+.about p, .privacy p { font-size: clamp(16px, 1.4vw, 19px); line-height: 1.45; letter-spacing: -.02em }
+.about-title { margin: 55px 0 0; font-size: clamp(33px, 5vw, 65px); text-transform: uppercase }
+.about-title span { display: block }
+.about-title span:first-child { display: flex; justify-content: space-between }
+.about-title span + span { margin-top: .13em; text-align: center }
+.about-sub { text-align: center; margin: 7px auto 0 }
+.about-intro { margin: 80px 0 65px; max-width: 555px }
+.about-intro h2 { display: flex; align-items: baseline; gap: 8px; text-transform: none; font-size: 30px }
+.about-intro img { width: 145px }
+.about-intro p { margin-top: 8px }
+.story h2, .team-section > h2, .approach h2 { font-size: clamp(34px, 4.1vw, 56px) }
+.story-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 7vw, 94px); margin-top: 22px }
+.story-cols h3, .today h3 { font-size: 18px; margin-bottom: 6px }
+.bigger { text-align: right; padding: 45px 0 50px }
+.today { color: var(--ink); background: white; padding: 36px 0 }
+.today .wrap { max-width: 595px }
+.team-section { padding: 64px 0 0 }
+.team-section h2 em { display: inline-block; margin-left: 1.1em }
+.team-grid { margin-top: 27px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+.person { color: var(--ink); background: #f5f4f3; border-radius: 12px; padding: 16px; position: relative; overflow: hidden }
+.person:first-child { grid-column: span 2 }
+.person summary { display: flex; align-items: center; gap: 12px; list-style: none }
+.person summary::-webkit-details-marker { display: none }
+.person img { width: 70px; height: 74px; object-fit: contain; flex: none }
+.person summary span { display: grid; gap: 3px }
+.person strong { font-size: 22px; letter-spacing: -.035em }
+.person small { font-size: 14px; color: #675c56 }
+.person p { margin: 8px 0 0; font-size: 15px; line-height: 1.4 }
+.approach { padding-block: 62px }
+.approach > p { margin-top: 6px }
+.approach .partners { margin-top: 40px }
+.privacy { padding: 45px 0 65px }
+.privacy h1 { font-size: clamp(32px, 4vw, 52px); max-width: 870px; text-transform: uppercase; margin-bottom: 35px }
+.privacy h2 { font-size: 21px; text-transform: none; margin: 28px 0 9px }
+.privacy p { max-width: 850px; margin: 4px 0; font-size: 16px }
+.case-page { --board: #f3f3f3; background: var(--board) }
+.case-page.case-dark { --board: #212020; color: white }
+.case-hero { position: relative; color: white; isolation: isolate; overflow: hidden }
+.case-hero .site-header { position: absolute; inset: 9px 0 auto; z-index: 4; width: 84%; min-height: 45px }
+.case-hero .monogram { filter: brightness(0) invert(1); width: 38px }
+.case-hero nav { font-size: 16px; text-shadow: 0 1px 5px #262323 }
+.carousel-hero {
+  aspect-ratio: 8 / 5;
+  background: #292727 var(--art) center / cover no-repeat;
+}
+.case-intro { position: absolute; top: 8%; left: 17%; width: 66%; text-align: center }
+.case-intro h1 { text-transform: uppercase; font-size: clamp(22px, 3.38vw, 84px) }
+.case-intro p { font-size: clamp(13px, 1.55vw, 38px); line-height: 1.15; margin-top: .15em; letter-spacing: -.025em }
+.carousel {
+  /* The cards occupy a band from y=246 to 1057 on the 1920 × 1200 artboard. */
+  position: absolute;
+  top: 20.5%;
+  width: 100%;
+  aspect-ratio: 1920 / 811;
+  isolation: isolate;
+  touch-action: pan-y;
+  --center-x: 34.167%;
+  --left-shift: -51.9%;
+  --right-shift: 51.9%;
+  --prev-x: 27.6%;
+  --next-x: 72.4%;
+}
+:is(.bloody, .vitek, .hyundai-oven) .carousel {
+  --center-x: 35.73%;
+  --left-shift: -47%;
+  --right-shift: 37.1%;
+  --prev-x: 32.3%;
+  --next-x: 70.83%;
+}
+.slide { position: absolute; height: 100%; width: 31.667%; top: 0; left: var(--center-x); object-fit: cover; border-radius: 1.87vw }
+.slide.left { transform: translate(var(--left-shift), -1.45%) scale(.84) }
+.slide.right { transform: translate(var(--right-shift), -1.45%) scale(.84) }
+.slide.outgoing { z-index: 1 }
+.slide.center { z-index: 2; transform: translate(0, 0) scale(1); box-shadow: 0 0 3.2vw rgb(32 13 13 / 65%) }
+@media (prefers-reduced-motion: no-preference) {
+  .slide { transition: transform 390ms cubic-bezier(.22,.72,.24,1) }
+}
+.carousel button { min-height: 32px; height: 2.5vw; min-width: 44px; width: 4vw; line-height: 1; background: white; color: var(--ink); border: 0; border-radius: 99px; position: absolute; z-index: 3; top: 50%; transform: translate(-50%,-50%); font-size: clamp(19px, 1.9vw, 40px); padding: 0 0 .1em }
+.carousel button:hover { background: #f7e5d9 }
+.carousel .prev { left: var(--prev-x) }
+.carousel .next { left: var(--next-x) }
+.brand-tab { position: absolute; bottom: -1px; left: 0; width: 100%; pointer-events: none }
+.full-art picture { display: block; width: 100% }
+.case-board, .case-work { display: block; width: min(100%, 1120px); margin: 0 auto }
+.full-art .site-header { text-shadow: 0 1px 5px #111 }
+.case-board picture, .case-work picture { display: block }
+.case-page picture img { width: 100% }
+.case-work a { display: block; cursor: zoom-in }
+.case-links { justify-content: space-between; min-height: 74px; font-size: 16px }
+#zoom { width: min(1240px, 96vw); background: white }
+#zoom img { width: 100% }
+#zoom .close { position: sticky; float: right; top: 8px; margin: 8px 8px -50px 0; background: var(--ink); color: white; border-radius: 50% }
+@media (max-width: 680px) {
+  .catalog { padding-block: 14px 28px }
+  .catalog-row, .catalog-row.layout-1, .catalog-row.layout-2, .catalog-row.layout-4 { grid-template-columns: 1fr 1.4fr; gap: 12px }
+  .catalog-row.layout-1, .catalog-row.layout-2, .catalog-row.layout-4 { grid-template-columns: 1.4fr 1fr }
+  .catalog-row .project h3 { font-size: 15px }
+  .catalog-row .project p { font-size: 14px }
+  .about-title { margin-top: 38px }
+  .about-sub { text-align: left; margin-top: 12px }
+  .about-intro { margin: 48px 0 }
+  .story-cols { grid-template-columns: 1fr; gap: 16px }
+  .today .wrap { width: 90% }
+  .bigger { padding: 28px 0 }
+  .team-section { padding-top: 42px }
+  .team-grid { grid-template-columns: 1fr; gap: 8px }
+  .person:first-child { grid-column: auto }
+  .person { padding: 9px 12px }
+  .person summary { cursor: pointer }
+  .person summary::after { content: '+'; margin-left: auto; font-size: 24px; color: var(--orange) }
+  .person[open] summary::after { content: '−' }
+  .person img { width: 50px; height: 54px }
+  .person strong { font-size: 18px }
+  .person p { padding-bottom: 5px }
+  .approach, .privacy { padding-block: 36px }
+  .case-hero .site-header { inset: 5px 0 auto; width: 90% }
+  .full-art .site-header { position: relative; inset: auto; width: 100%; padding-inline: 5%; background: var(--ink) }
+  .case-hero nav { font-size: 14px }
+  .carousel-hero { aspect-ratio: auto; padding: 52px 0 7.5% }
+  .case-intro { position: static; width: 90%; margin: 0 auto 12px }
+  .case-intro h1 { font-size: clamp(18px, 4vw, 27px) }
+  .case-intro p { max-width: 40em; margin: 4px auto 0; font-size: clamp(12px, 2.6vw, 16px) }
+  .case-hero .carousel {
+    position: relative;
+    top: auto;
+    --center-x: 34.167%;
+    --left-shift: -65.8%;
+    --right-shift: 65.8%;
+    --prev-x: 23%;
+    --next-x: 77%;
+  }
+  .carousel button { min-width: 44px; min-height: 44px; background: transparent; padding: 0 }
+  .carousel button::before { content: ''; position: absolute; z-index: -1; inset: 10px 4px; background: white; border-radius: 99px }
+  .carousel button:hover { background: transparent }
+}
