@@ -45,6 +45,35 @@
 .case-page { --board: #f3f3f3; background: var(--board) }
 .case-page.case-dark { --board: #212020; color: white }
 .case-hero { position: relative; color: white; isolation: isolate; overflow: hidden }
+.case-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 4;
+  color: white;
+  pointer-events: none;
+}
+.case-header.is-solid { background-color: var(--ink); pointer-events: auto }
+.case-header nav {
+  container-type: inline-size;
+  width: min(100%, var(--art-width, 100%));
+  margin-inline: auto;
+  justify-content: space-between;
+}
+.case-header a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-block: var(--header-inset, min(2.86cqw, 4svh));
+  font-size: clamp(16px, 2.5cqw, 48px);
+  line-height: 1.44;
+  pointer-events: auto;
+}
+.case-header a:first-child { margin-inline-start: 8.33% }
+.case-header a:last-child { margin-inline-end: 9% }
+.case-header .monogram { width: clamp(37px, 6.1cqw, 117px); filter: brightness(0) invert(1) }
+/* The poster has text near its top edge. Extend its navy margin on small screens. */
+[data-project="delimobil"] .full-art { padding-top: max(0px, calc(44px - 3vw)); background: #000029 }
+[data-project="delimobil"] .case-header { --header-inset: 0px }
 .carousel-hero {
   aspect-ratio: 8 / 5;
   background: #292727 center / cover no-repeat;
@@ -87,8 +116,8 @@
 .carousel .next { left: var(--next-x) }
 .brand-tab { position: absolute; bottom: -1px; left: 0; width: 100%; pointer-events: none }
 .full-art picture { display: block; width: 100% }
-.case-cover-title { padding: .8em 5vw; background: var(--board); color: var(--ink); text-align: center; font-size: clamp(22px, 3.38vw, 65px) }
-.case-board, .case-work { display: block; width: min(100%, 1120px); margin: 0 auto }
+.case-spread { --art-width: min(1120px, 144svh) }
+.case-spread .full-art, .case-board, .case-work { display: block; width: min(100%, var(--art-width, 1120px)); margin: 0 auto }
 .case-work-title { padding: 1em 5%; font-size: clamp(18px, 2vw, 28px); text-align: center }
 .case-board picture, .case-work picture { display: block }
 .case-page picture img { width: 100% }
@@ -120,7 +149,10 @@
   .person strong { font-size: 18px }
   .person p { padding-bottom: 5px }
   .approach, .privacy { padding-block: 36px }
-  .carousel-hero { aspect-ratio: auto; padding: 14px 0 7.5% }
+  .case-header { --header-inset: 0px }
+  .case-header a:first-child { margin-inline-start: 5% }
+  .case-header a:last-child { margin-inline-end: 5% }
+  .carousel-hero { aspect-ratio: auto; padding: 48px 0 7.5% }
   .case-intro { position: static; width: 90%; margin: 0 auto 12px }
   .case-intro h1 { font-size: clamp(18px, 4vw, 27px) }
   .case-intro p { max-width: 40em; margin: 4px auto 0; font-size: clamp(12px, 2.6vw, 16px) }

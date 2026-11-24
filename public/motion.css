@@ -41,9 +41,10 @@
   .full-art > picture, .carousel { --reveal-opacity: 1; --reveal-distance: 6px }
   .privacy, footer { --reveal-distance: 7px; --reveal-opacity: .6; --reveal-duration: 360ms }
 
-  .site-header nav a, .case-links a, footer a, .all-projects {
+  .site-header nav a, .case-header a, .case-links a, footer a, .all-projects {
     transition: color 160ms ease;
   }
+  .case-header { transition: background-color 200ms ease }
   .pill, .send {
     transition: background-color 160ms ease, color 160ms ease, scale 120ms ease;
   }

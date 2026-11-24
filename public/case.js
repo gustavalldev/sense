@@ -1,3 +1,17 @@
+const header = document.querySelector(".case-header");
+const hero = document.querySelector(".case-hero");
+let heroObserver;
+
+// Switch the background when the cover passes the lower edge of the fixed menu.
+new ResizeObserver(() => {
+  const headerHeight = Math.round(header.getBoundingClientRect().height);
+  heroObserver?.disconnect();
+  heroObserver = new IntersectionObserver(([entry]) => {
+    header.classList.toggle("is-solid", !entry.isIntersecting && entry.boundingClientRect.top < 0);
+  }, { rootMargin: `-${headerHeight}px 0px 0px` });
+  heroObserver.observe(hero);
+}).observe(header);
+
 const carousel = document.querySelector(".carousel");
 if (carousel) {
   const positions = ["center", "right", "left"];
