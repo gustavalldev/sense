@@ -1,7 +1,7 @@
 @keyframes block-enter {
   from {
-    opacity: var(--reveal-opacity, .08);
-    translate: 0 var(--reveal-distance, 20px);
+    opacity: var(--reveal-opacity, .2);
+    translate: 0 var(--reveal-distance, 10px);
   }
   to { opacity: 1; translate: 0 0 }
 }
@@ -18,29 +18,30 @@
   :root { --enter-ease: cubic-bezier(.2,.72,.24,1) }
   .hero h1 { clip-path: inset(-8% -2%) }
   .hero .wordmark { animation: wordmark-enter 720ms var(--enter-ease) backwards }
-  .topbar, .site-header {
-    --reveal-distance: -6px;
-    --reveal-opacity: .55;
-    animation: block-enter 420ms ease-out backwards;
+  .reveal-pending {
+    opacity: var(--reveal-opacity, .2);
+    translate: 0 var(--reveal-distance, 10px);
   }
+  .reveal-pending:focus-within, dialog .reveal-pending { opacity: 1; translate: none }
   .reveal-enter {
-    animation: block-enter var(--reveal-duration, 520ms) var(--enter-ease) var(--reveal-delay, 0ms) backwards;
+    animation: block-enter var(--reveal-duration, 320ms) var(--enter-ease) var(--reveal-delay, 0ms) backwards;
   }
   .reveal-enter:focus-within, dialog .reveal-enter { animation: none }
   .service:nth-child(2), .service:nth-child(4), .service:nth-child(7),
   .project-grid .project:nth-child(even), .catalog-row .project + .project,
-  .story-cols > :nth-child(2), .team-grid .person:nth-child(odd):not(:first-child) {
-    --reveal-delay: 65ms;
+  .story-cols > :nth-child(2) {
+    --reveal-delay: 35ms;
   }
+  .team-grid .person { --reveal-distance: 0px; --reveal-opacity: .35 }
   .partners, .case-board, .case-work {
     --reveal-distance: 10px;
     --reveal-opacity: .5;
-    --reveal-duration: 600ms;
+    --reveal-duration: 360ms;
   }
   .full-art > picture, .carousel { --reveal-opacity: 1; --reveal-distance: 6px }
   .privacy, footer { --reveal-distance: 7px; --reveal-opacity: .6; --reveal-duration: 360ms }
 
-  .topbar nav a, .site-header nav a, .case-links a, footer a, .all-projects {
+  .site-header nav a, .case-links a, footer a, .all-projects {
     transition: color 160ms ease;
   }
   .pill, .send {
@@ -58,6 +59,5 @@
 }
 
 @media (max-width: 680px) {
-  .reveal-enter { --reveal-distance: 12px }
-  .team-grid .person:nth-child(n), .story-cols > :nth-child(n) { --reveal-delay: 0ms }
+  .story-cols > :nth-child(n) { --reveal-delay: 0ms }
 }

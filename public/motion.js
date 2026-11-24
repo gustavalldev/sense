@@ -19,15 +19,32 @@ function revealOnScroll() {
   document.addEventListener("animationcancel", finishEntrance);
 
   const observer = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      observer.unobserve(entry.target);
-      if (motion.matches && !entry.target.closest("dialog") && !entry.target.matches(":focus-within")) {
-        entry.target.classList.add("reveal-enter");
+    const arriving = entries.filter(entry => entry.isIntersecting);
+    if (!arriving.length) return;
+    for (const entry of arriving) observer.unobserve(entry.target);
+
+    // Sample one frame on entry. A fast swipe should show the content immediately.
+    const scrollStart = window.scrollY;
+    const timeStart = performance.now();
+    requestAnimationFrame(() => {
+      const fast = Math.abs(window.scrollY - scrollStart) > 1.4 * Math.max(8, performance.now() - timeStart);
+      for (const { target, boundingClientRect, rootBounds } of arriving) {
+        const nearEdge = rootBounds && boundingClientRect.top >= rootBounds.bottom - 80;
+        const animate = motion.matches && !fast && nearEdge &&
+          !target.closest("dialog") && !target.matches(":focus-within");
+        if (animate) target.classList.replace("reveal-pending", "reveal-enter");
+        else target.classList.remove("reveal-pending");
       }
-    }
-  });
-  document.querySelectorAll(blocks).forEach((block) => observer.observe(block));
+    });
+  }, { rootMargin: "0px 0px 24px" });
+
+  // Read positions before writing styles. Visible and restored content stays put.
+  const viewport = document.documentElement.clientHeight;
+  const upcoming = [...document.querySelectorAll(blocks)].filter(block => block.getBoundingClientRect().top >= viewport);
+  for (const block of upcoming) {
+    block.classList.add("reveal-pending");
+    observer.observe(block);
+  }
 }
 
 if (document.readyState === "complete") revealOnScroll();

@@ -41,7 +41,7 @@ for (const service of services) {
   button.setAttribute("aria-controls", "detail");
   button.innerHTML = '<span class="service-label"><strong class="service-title"></strong><span class="more">подробнее <span aria-hidden="true">↗</span></span></span><img loading="lazy" alt="">';
   button.querySelector("strong").textContent = service.title;
-  button.querySelector("img").src = "/assets/" + service.slug + ".webp";
+  button.querySelector("img").src = "assets/" + service.slug + ".webp";
   button.addEventListener("click", () => showService(service));
   serviceList.append(button);
 }
@@ -114,21 +114,35 @@ if (!CSS.supports("(animation-timeline: --statement) and (animation-range: cover
   function scheduleStatement() {
     if (!frame) frame = requestAnimationFrame(updateStatement);
   }
-  function syncMotion() {
-    intro.classList.toggle("scroll-fallback", motion.matches);
-    if (motion.matches) {
-      updateStatement();
+  function trackStatement(active) {
+    if (active) {
       document.addEventListener("scroll", scheduleStatement, { passive: true });
       window.addEventListener("resize", scheduleStatement);
-      window.addEventListener("pageshow", scheduleStatement);
     } else {
       document.removeEventListener("scroll", scheduleStatement);
       window.removeEventListener("resize", scheduleStatement);
-      window.removeEventListener("pageshow", scheduleStatement);
       cancelAnimationFrame(frame);
       frame = 0;
     }
   }
+  const visibility = "IntersectionObserver" in window
+    ? new IntersectionObserver((entries) => {
+        if (!motion.matches) return;
+        trackStatement(entries[entries.length - 1].isIntersecting);
+        scheduleStatement();
+      }, { rootMargin: "64px 0px" })
+    : null;
+  function syncMotion() {
+    intro.classList.toggle("scroll-fallback", motion.matches);
+    trackStatement(motion.matches && !visibility);
+    if (motion.matches) {
+      updateStatement();
+      visibility?.observe(intro);
+    } else {
+      visibility?.disconnect();
+    }
+  }
   syncMotion();
+  window.addEventListener("pageshow", syncMotion);
   motion.addEventListener("change", syncMotion);
 }
