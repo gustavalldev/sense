@@ -41,7 +41,19 @@ for (const service of services) {
   button.setAttribute("aria-controls", "detail");
   button.innerHTML = '<span class="service-label"><strong class="service-title"></strong><span class="more">подробнее <span aria-hidden="true">↗</span></span></span><img loading="lazy" alt="">';
   button.querySelector("strong").textContent = service.title;
-  button.querySelector("img").src = "assets/" + service.slug + ".webp";
+  const image = button.querySelector("img");
+  const thumbnail = "assets/home/" + service.slug;
+  const original = "assets/" + service.slug + ".webp";
+  image.width = service.imageWidth;
+  image.height = service.imageHeight;
+  image.decoding = "async";
+  // On narrow cards the cover crop is sized by its height.
+  const ratio = service.imageWidth / service.imageHeight;
+  const mobileSize = service.slug === "print" ? "max(79px, 25.2vw)" :
+    `clamp(${Math.ceil(100 * ratio)}px, ${(23 * ratio).toFixed(2)}vw, ${Math.ceil(135 * ratio)}px)`;
+  image.sizes = "(max-width: 680px) " + mobileSize + ", 130px";
+  image.srcset = thumbnail + "-160.webp 160w, " + thumbnail + "-320.webp 320w, " + original + " " + service.imageWidth + "w";
+  image.src = original;
   button.addEventListener("click", () => showService(service));
   serviceList.append(button);
 }
